@@ -14,7 +14,7 @@ pipeline {
 if [ ! -n $PID ]; then
   kill -9 $PID
 fi'''
-        sh '''export BUILD_ID=dontKillMe
+        sh '''JENKINS_NODE_COOKIE=dontKillMe
 nohup java -jar ./build/libs/package-booking-backend-0.0.1-SNAPSHOT.jar > out.log &'''
       }
     }
