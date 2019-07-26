@@ -15,7 +15,7 @@ if [ ! -n $PID ]; then
   kill -9 $PID
 fi'''
         sh '''JENKINS_NODE_COOKIE=dontKillMe
-nohup java -jar ./build/libs/package-booking-backend-0.0.1-SNAPSHOT.jar > out.log &'''
+nohup java -jar ./build/libs/parking-alfred-0.1.jar > out.log &'''
       }
     }
   }
