@@ -14,8 +14,9 @@ pipeline {
 if [ ! -n $PID ]; then
   kill -9 $PID
 fi'''
-        sh '''export JENKINS_NODE_COOKIE=dontKillMe
-nohup java -jar ./build/libs/parking-alfred-0.1.jar > out.log &'''
+        sh '''JENKINS_NODE_COOKIE=dontKillMe
+nohup java -jar ./build/libs/parking-alfred-0.1.jar > out.log &
+sleep 20s'''
       }
     }
   }
