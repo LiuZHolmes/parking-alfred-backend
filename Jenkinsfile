@@ -3,7 +3,9 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh '''chmod 700 ./gradlew
+        sh '''cp /root/backup/application-dev.yml ./src/main/resources/
+
+chmod 700 ./gradlew
 
 ./gradlew clean build'''
       }
