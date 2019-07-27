@@ -11,49 +11,72 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.stream.Stream;
 
 public class JwtAuthInterceptor implements HandlerInterceptor {
 
+    private String[] permits = {"/login"};
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
-        if (!(handler instanceof HandlerMethod)) return true;
-        HandlerMethod handlerMethod = (HandlerMethod) handler;
+        if (!(handler instanceof HandlerMethod))
+            return true;
 
-        Authorize authorize = handlerMethod.getMethod().getAnnotation(Authorize.class);
-
-        if (authorize == null) {
-            authorize = handlerMethod.getMethod().getDeclaringClass().getAnnotation(Authorize.class);
-        }
-
-        if (authorize == null) return true;
+        String path = request.getRequestURI().substring(request.getContextPath().length());
+        if (isExcludePath(path))
+            return true;
 
         String token = request.getHeader("Authorization");
-        if (checkAuthorize(authorize, token)) return true;
-
-        response.setHeader("Content-type", "text/html;charset=UTF-8");
-        response.setCharacterEncoding("utf-8");
-        response.setStatus(401);
-        response.getWriter().write("401 Unauthorized");
-        return false;
-    }
-
-    private boolean checkAuthorize(Authorize authorize, String token) {
-        if (token == null) return false;
+        if (token == null) {
+            buildUnauthorizedResponse(response);
+            return false;
+        }
 
         token = token.replace("Bearer ", "");
         Claims claims = JwtUtil.getTokenBody(token);
-        if (claims == null) return false;
+        if (claims.isEmpty()) {
+            buildUnauthorizedResponse(response);
+            return false;
+        }
 
+        Authorize authorize = getAuthorize(handler);
+        if (authorize == null)
+            return true;
+        if (checkAuthorize(authorize, claims))
+            return true;
+
+        buildUnauthorizedResponse(response);
+        return false;
+    }
+
+    private boolean checkAuthorize(Authorize authorize, Claims claims) {
         Object roleClaim = claims.get("role");
         if (roleClaim == null) return false;
 
-        RoleEnum role = EnumUtil.getByCode(Integer.
-                parseInt(roleClaim.toString()), RoleEnum.class);
+        RoleEnum role = EnumUtil.getByCode(Integer.parseInt(roleClaim.toString()), RoleEnum.class);
         for (RoleEnum r : authorize.value()) {
             if (r == role)
                 return true;
         }
         return false;
+    }
+
+    private Authorize getAuthorize(Object handler) {
+        HandlerMethod handlerMethod = (HandlerMethod) handler;
+        Authorize authorize = handlerMethod.getMethod().getAnnotation(Authorize.class);
+        if (authorize == null)
+            authorize = handlerMethod.getMethod().getDeclaringClass().getAnnotation(Authorize.class);
+        return authorize;
+    }
+
+    private void buildUnauthorizedResponse(HttpServletResponse response) throws IOException {
+        response.setHeader("Content-type", "text/html;charset=UTF-8");
+        response.setCharacterEncoding("utf-8");
+        response.setStatus(401);
+        response.getWriter().write("401 Unauthorized");
+    }
+
+    private boolean isExcludePath(String uri) {
+        return Stream.of(permits).anyMatch(uri::matches);
     }
 }
