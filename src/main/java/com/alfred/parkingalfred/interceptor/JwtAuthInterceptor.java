@@ -1,7 +1,8 @@
 package com.alfred.parkingalfred.interceptor;
 
 import com.alfred.parkingalfred.annotation.Authorize;
-import com.alfred.parkingalfred.enums.Role;
+import com.alfred.parkingalfred.enums.RoleEnum;
+import com.alfred.parkingalfred.utils.EnumUtil;
 import com.alfred.parkingalfred.utils.JwtUtil;
 import io.jsonwebtoken.Claims;
 import org.springframework.web.method.HandlerMethod;
@@ -44,8 +45,9 @@ public class JwtAuthInterceptor implements HandlerInterceptor {
         Claims claims = JwtUtil.getTokenBody(token);
         if (claims == null) return false;
 
-        Role role = Role.valueOf(claims.get("role").toString());
-        for (Role r : authorize.value()) {
+        RoleEnum role = EnumUtil.getByCode(Integer.
+            parseInt(claims.get("role").toString()),RoleEnum.class) ;
+        for (RoleEnum r : authorize.value()) {
             if (r == role)
                 return true;
         }
