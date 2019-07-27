@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 
 @RestController
-@RequestMapping()
 public class AuthController {
 
     private JwtConfig jwtConfig;
@@ -31,4 +30,6 @@ public class AuthController {
                 .compact();
         return ResponseEntity.ok(token);
     }
+
+
 }

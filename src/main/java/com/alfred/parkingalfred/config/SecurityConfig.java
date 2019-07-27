@@ -15,7 +15,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         String[] permits = new String[]{
                 "/",
-                "/auth/*"
+                "/login"
         };
 
         http.csrf().disable()
