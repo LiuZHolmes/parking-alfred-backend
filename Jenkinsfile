@@ -20,5 +20,10 @@ fi'''
 nohup java -jar /var/lib/jenkins/workspace/parking-alfred-backend_master/build/libs/parking-alfred-0.1.jar > out.log &'''
       }
     }
+    stage('Wait to deploy') {
+      steps {
+        input(message: 'sure?', ok: 'YES')
+      }
+    }
   }
 }
