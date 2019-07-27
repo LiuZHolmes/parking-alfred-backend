@@ -1,6 +1,6 @@
 package com.alfred.parkingalfred.annotation;
 
-import com.alfred.parkingalfred.enums.Role;
+import com.alfred.parkingalfred.enums.RoleEnum;
 
 import java.lang.annotation.*;
 
@@ -9,5 +9,6 @@ import java.lang.annotation.*;
 @Documented
 @Inherited
 public @interface Authorize {
-    Role[] value();
+
+    RoleEnum[] value();
 }
