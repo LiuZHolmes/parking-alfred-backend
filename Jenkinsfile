@@ -28,13 +28,14 @@ nohup java -jar /var/lib/jenkins/workspace/parking-alfred-backend_master/build/l
     stage('Deploy') {
       steps {
         sh '''LOCAL_FILE=\'/var/lib/jenkins/workspace/parking-alfred-backend_master/build/libs/parking-alfred-0.1.jar\'
+LOCAL_KEY=\'/root/.ssh/ooclserver_rsa\'
 PROD_USER=\'root\'
 PROD_ADDRESS=\'39.100.49.41\'
 PROD_DIR=\'/usr/local/app/parking-alfred-backend\'
 
-scp ${LOCAL_FILE} ${PROD_USER}@${PROD_ADDRESS}:${PROD_DIR}
+scp -i ${LOCAL_KEY} ${LOCAL_FILE} ${PROD_USER}@${PROD_ADDRESS}:${PROD_DIR}
 
-ssh ${PROD_USER}@${PROD_ADDRESS} "cd ${PROD_DIR}; ./depoly.sh"'''
+ssh -i ${LOCAL_KEY} ${PROD_USER}@${PROD_ADDRESS} "cd ${PROD_DIR}; ./depoly.sh"'''
       }
     }
   }
