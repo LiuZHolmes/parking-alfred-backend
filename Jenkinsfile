@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh '''cp /root/backup/application-dev.yml ./src/main/resources/
+        sh '''cp /root/backup/application-*.yml ./src/main/resources/
 
 chmod 700 ./gradlew
 
