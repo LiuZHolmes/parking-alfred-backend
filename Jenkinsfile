@@ -35,7 +35,9 @@ PROD_DIR=\'/usr/local/app/parking-alfred-backend\'
 
 scp -i ${LOCAL_KEY} ${LOCAL_FILE} ${PROD_USER}@${PROD_ADDRESS}:${PROD_DIR}
 
-ssh -i ${LOCAL_KEY} ${PROD_USER}@${PROD_ADDRESS} "cd ${PROD_DIR}; ./depoly.sh"'''
+ssh -i ${LOCAL_KEY} ${PROD_USER}@${PROD_ADDRESS} "cd ${PROD_DIR}; ./deploy.sh"
+
+exit'''
       }
     }
   }
