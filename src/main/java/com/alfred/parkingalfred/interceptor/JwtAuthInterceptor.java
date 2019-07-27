@@ -28,7 +28,7 @@ public class JwtAuthInterceptor implements HandlerInterceptor {
 
         if (authorize == null) return true;
 
-        String token = request.getHeader("Authentication");
+        String token = request.getHeader("Authorization");
         if (checkAuthorize(authorize, token)) return true;
 
         response.setHeader("Content-type", "text/html;charset=UTF-8");
@@ -40,13 +40,16 @@ public class JwtAuthInterceptor implements HandlerInterceptor {
 
     private boolean checkAuthorize(Authorize authorize, String token) {
         if (token == null) return false;
-        
+
         token = token.replace("Bearer ", "");
         Claims claims = JwtUtil.getTokenBody(token);
         if (claims == null) return false;
 
+        Object roleClaim = claims.get("role");
+        if (roleClaim == null) return false;
+
         RoleEnum role = EnumUtil.getByCode(Integer.
-            parseInt(claims.get("role").toString()),RoleEnum.class) ;
+                parseInt(roleClaim.toString()), RoleEnum.class);
         for (RoleEnum r : authorize.value()) {
             if (r == role)
                 return true;

@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "jwt")
 public class JwtConfig {
+
     private long expire;
+
     private String secret;
 }
