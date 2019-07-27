@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 
 @RestController
-@RequestMapping(value = "/auth")
+@RequestMapping()
 public class AuthController {
 
     private JwtConfig jwtConfig;
@@ -22,7 +22,7 @@ public class AuthController {
     @ResponseBody
     public ResponseEntity login(String username, String password) {
         if (username == null || password == null) {
-            ResponseEntity.badRequest().body("auth is invalid");
+            return ResponseEntity.badRequest().body("auth is invalid");
         }
         String token = Jwts.builder()
                 .setExpiration(new Date(System.currentTimeMillis() + jwtConfig.getExpire() * 1000))
