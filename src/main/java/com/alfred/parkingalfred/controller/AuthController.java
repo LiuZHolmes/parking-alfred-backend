@@ -21,4 +21,6 @@ public class AuthController {
         String token = JwtUtil.generateToken(employee);
         return ResponseEntity.ok(token);
     }
+
+
 }
