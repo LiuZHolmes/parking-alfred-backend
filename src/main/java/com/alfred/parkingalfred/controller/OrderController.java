@@ -4,9 +4,13 @@ import com.alfred.parkingalfred.dto.CreateOrderDto;
 import com.alfred.parkingalfred.enums.ResultEnum;
 import com.alfred.parkingalfred.service.OrderService;
 import com.alfred.parkingalfred.vo.ResultVO;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin
 public class OrderController {
 
     private final OrderService orderService;
