@@ -11,4 +11,6 @@ public interface OrderService {
     Order addOrder(Order order);
 
     Order getOrderById(Long id);
+
+    Order updateOrderStatusById(Long id, Order order);
 }
