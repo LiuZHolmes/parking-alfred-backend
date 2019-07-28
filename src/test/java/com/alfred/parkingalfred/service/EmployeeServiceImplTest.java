@@ -37,7 +37,7 @@ public class EmployeeServiceImplTest {
         Employee employee = new Employee();
         when(employeeRepository.findByNameAndPassword(name, encodedPassword)).thenReturn(employee);
         Employee actualEmployee = employeeService.getEmployeeByNameAndPassword(name, password);
-
         assertEquals(objectMapper.writeValueAsString(employee), objectMapper.writeValueAsString(actualEmployee));
     }
+
 }
