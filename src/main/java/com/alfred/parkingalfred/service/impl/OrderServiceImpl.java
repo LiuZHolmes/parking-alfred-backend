@@ -5,6 +5,8 @@ import com.alfred.parkingalfred.repository.OrderRepository;
 import com.alfred.parkingalfred.service.OrderService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class OrderServiceImpl implements OrderService {
 
@@ -17,5 +19,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order addOrder(Order order) {
         return orderRepository.save(order);
+    public List<Order> getOrders() {
+        return orderRepository.findAll();
     }
 }
