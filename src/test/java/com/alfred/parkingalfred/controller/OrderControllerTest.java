@@ -1,12 +1,13 @@
 package com.alfred.parkingalfred.controller;
 
+import com.alfred.parkingalfred.entity.Employee;
 import com.alfred.parkingalfred.entity.Order;
 import com.alfred.parkingalfred.service.OrderService;
+import com.alfred.parkingalfred.utils.JwtUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,6 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -61,6 +63,23 @@ public class OrderControllerTest {
         mockMvc.perform(post("/orders")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(order))
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void should_return_order_when_get_order_by_id() throws Exception {
+        Long id = 1L;
+        Order order = new Order();
+        order.setId(id);
+        when(orderService.getOrderById(anyLong())).thenReturn(order);
+
+        Employee employee = new Employee();
+        employee.setId(id);
+        String token = JwtUtil.generateToken(employee);
+
+        mockMvc.perform(get("/orders/{id}", id)
+                .header("Authorization", "Bearer " + token)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }

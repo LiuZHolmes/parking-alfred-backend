@@ -4,10 +4,7 @@ import com.alfred.parkingalfred.entity.Order;
 import com.alfred.parkingalfred.enums.ResultEnum;
 import com.alfred.parkingalfred.service.OrderService;
 import com.alfred.parkingalfred.vo.ResultVO;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class OrderController {
@@ -26,5 +23,10 @@ public class OrderController {
     @PostMapping("/orders")
     public ResultVO createOrder(@RequestBody Order order) {
         return new ResultVO<>(ResultEnum.SUCCESS.getStatus(), null, orderService.addOrder(order));
+    }
+
+    @GetMapping("/orders/{id}")
+    public ResultVO getOrderById(@PathVariable Long id) {
+        return new ResultVO<>(ResultEnum.SUCCESS.getStatus(), null, orderService.getOrderById(id));
     }
 }
