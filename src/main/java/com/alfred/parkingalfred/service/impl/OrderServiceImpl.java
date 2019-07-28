@@ -25,4 +25,9 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> getOrders() {
         return orderRepository.findAll();
     }
+
+    @Override
+    public List<Order> getOrdersByTypeAndStatus(Integer type,Integer status){
+        return orderRepository.findOrdersByTypeAndStatus(type,status);
+    }
 }

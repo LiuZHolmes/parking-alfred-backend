@@ -46,4 +46,11 @@ public class Order {
   @OneToOne
   @JoinColumn(name = "parkingLotId",referencedColumnName="id")
   private ParkingLot parkingLot;
+
+  public Order(Long orderId, Integer type,  String customerAddress, Integer status) {
+    this.orderId = orderId;
+    this.type = type;
+    this.customerAddress = customerAddress;
+    this.status = status;
+  }
 }
