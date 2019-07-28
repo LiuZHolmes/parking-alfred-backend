@@ -4,6 +4,7 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import lombok.Data;
@@ -15,7 +16,7 @@ import lombok.NoArgsConstructor;
 public class ParkingLot {
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @Column(unique = true, nullable = false)
@@ -27,4 +28,11 @@ public class ParkingLot {
 
   @ManyToMany(mappedBy = "parkingLots")
   private List<Employee> employees;
+
+  public ParkingLot(Long id, String name, Integer capacity, Integer occupied) {
+    this.id = id;
+    this.name = name;
+    this.capacity = capacity;
+    this.occupied = occupied;
+  }
 }

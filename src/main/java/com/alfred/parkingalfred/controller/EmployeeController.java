@@ -23,4 +23,6 @@ public class EmployeeController {
         String token = JwtUtil.generateToken(employee);
         return ResponseEntity.ok(token);
     }
+
+
 }
