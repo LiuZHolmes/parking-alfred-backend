@@ -18,11 +18,13 @@ public  class ParkingLotServiceImplTest {
 
   private ParkingLotRepository parkingLotRepository;
   private EmployeeRepository employeeRepository;
-  private ParkingLotServiceImpl parkingLotServiceImpl = new ParkingLotServiceImpl();
+  private ParkingLotServiceImpl parkingLotServiceImpl;
 
   @Before
   public void setUp(){
     employeeRepository = Mockito.mock(EmployeeRepository.class);
+    parkingLotRepository = Mockito.mock(ParkingLotRepository.class);
+    parkingLotServiceImpl = new ParkingLotServiceImpl(parkingLotRepository, employeeRepository);
   }
   @Test
   public  void should_return_parkingLots_of_employee_when_call_getAllParkingLotsByEmployeeId_with_true_employeeId(){

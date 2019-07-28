@@ -1,5 +1,6 @@
 package com.alfred.parkingalfred.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,6 +28,7 @@ public class ParkingLot {
   private Integer occupied;
 
   @ManyToMany(mappedBy = "parkingLots")
+  @JsonIgnore
   private List<Employee> employees;
 
   public ParkingLot(Long id, String name, Integer capacity, Integer occupied) {

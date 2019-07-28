@@ -1,8 +1,8 @@
-package com.alfred.parkingalfred.service;
+package com.alfred.parkingalfred.service.impl;
 
 import com.alfred.parkingalfred.entity.Employee;
 import com.alfred.parkingalfred.repository.EmployeeRepository;
-import com.alfred.parkingalfred.service.impl.EmployeeServiceImpl;
+import com.alfred.parkingalfred.service.EmployeeService;
 import com.alfred.parkingalfred.utils.EncodingUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -37,7 +37,7 @@ public class EmployeeServiceImplTest {
         Employee employee = new Employee();
         when(employeeRepository.findByNameAndPassword(name, encodedPassword)).thenReturn(employee);
         Employee actualEmployee = employeeService.getEmployeeByNameAndPassword(name, password);
-
         assertEquals(objectMapper.writeValueAsString(employee), objectMapper.writeValueAsString(actualEmployee));
     }
+
 }
