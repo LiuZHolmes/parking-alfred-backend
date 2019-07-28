@@ -1,7 +1,10 @@
 package com.alfred.parkingalfred.controller;
 
+import com.alfred.parkingalfred.dto.CreateOrderDto;
+import com.alfred.parkingalfred.enums.ResultEnum;
 import com.alfred.parkingalfred.service.OrderService;
 import com.alfred.parkingalfred.vo.ResultVO;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,7 +21,17 @@ public class OrderController {
 
     @GetMapping("/orders")
     public ResultVO getOrders() {
-        return new ResultVO<List>(200,"Return orders", orderService.getOrders());
+        return new ResultVO<>(ResultEnum.SUCCESS.getStatus(), null, orderService.getOrders());
+    }
+
+    @PostMapping("/orders")
+    public ResultVO createOrder(@RequestBody CreateOrderDto createOrderDto) {
+        return new ResultVO<>(ResultEnum.SUCCESS.getStatus(), null, orderService.addOrder(createOrderDto));
+    }
+
+    @GetMapping("/orders/{id}")
+    public ResultVO getOrderById(@PathVariable Long id) {
+        return new ResultVO<>(ResultEnum.SUCCESS.getStatus(), null, orderService.getOrderById(id));
     }
     @GetMapping(value = "/orders",params = {"type","status"})
     public ResultVO getParcelsByStatus(@RequestParam String type,@RequestParam String status){

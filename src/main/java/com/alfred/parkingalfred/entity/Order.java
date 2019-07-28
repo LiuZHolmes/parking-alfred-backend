@@ -13,6 +13,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 
 @Table(name = "orders")
 @Entity
@@ -25,7 +26,7 @@ public class Order {
   private Long id;
 
   @Column(unique = true)
-  private Long orderId;
+  private String orderId;
 
   private Integer type;
 
@@ -39,29 +40,30 @@ public class Order {
   @JoinColumn(name = "employeeId",referencedColumnName="id")
   private Employee employee;
 
-  @OneToOne
-  @JoinColumn(name = "carId",referencedColumnName="id")
-  private Car car;
+  private String carNumber;
 
   @OneToOne
   @JoinColumn(name = "parkingLotId",referencedColumnName="id")
   private ParkingLot parkingLot;
 
-  public Order(Long orderId, Integer type,  String customerAddress, Integer status) {
+  public Order(String orderId, Integer type,  String customerAddress, Integer status) {
     this.orderId = orderId;
     this.type = type;
     this.customerAddress = customerAddress;
     this.status = status;
   }
 
-  public Order(Long orderId, Integer type, Long reservationTime, String customerAddress, Integer status, Employee employee, Car car, ParkingLot parkingLot) {
+  public Order(String orderId, Integer type, Long reservationTime, String customerAddress, Integer status, Employee employee,String carNumber , ParkingLot parkingLot) {
     this.orderId = orderId;
     this.type = type;
     this.reservationTime = reservationTime;
     this.customerAddress = customerAddress;
     this.status = status;
     this.employee = employee;
-    this.car = car;
     this.parkingLot = parkingLot;
+    this.carNumber=carNumber;
   }
+
+    public void setCar(Car car) {
+    }
 }

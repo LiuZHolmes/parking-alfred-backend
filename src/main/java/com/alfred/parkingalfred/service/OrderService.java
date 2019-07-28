@@ -1,5 +1,6 @@
 package com.alfred.parkingalfred.service;
 
+import com.alfred.parkingalfred.dto.CreateOrderDto;
 import com.alfred.parkingalfred.entity.Order;
 import com.alfred.parkingalfred.entity.ParkingLot;
 
@@ -9,5 +10,7 @@ public interface OrderService {
 
     public List<Order> getOrders();
     public List<Order> getOrdersByTypeAndStatus(Integer type,Integer status);
-    public Order addOrder(Order order);
+    Order addOrder(CreateOrderDto createOrderDto);
+
+    Order getOrderById(Long id);
 }

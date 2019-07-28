@@ -1,26 +1,23 @@
 package com.alfred.parkingalfred.enums;
 
-import lombok.Data;
+import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
-
+@Getter
 public enum ResultEnum {
-  SUCCESS(HttpStatus.OK.value(), "成功"),
-  PARAM_ERROR(HttpStatus.BAD_REQUEST.value(), "参数不正确"),
-  RESOURCES_NOT_EXISTED(HttpStatus.NOT_FOUND.value(),"资源不存在");
-  private Integer status;
-  private String message;
 
-  ResultEnum(Integer status, String message) {
-    this.status = status;
-    this.message = message;
-  }
+    SUCCESS(HttpStatus.OK.value(), "success"),
 
-  public Integer getStatus() {
-    return status;
-  }
+    PARAM_ERROR(HttpStatus.BAD_REQUEST.value(), "incorrect parameters"),
 
-  public String getMessage() {
-    return message;
-  }
+    RESOURCES_NOT_EXISTED(HttpStatus.NOT_FOUND.value(), "resources not exists");
+
+    private Integer status;
+
+    private String message;
+
+    ResultEnum(Integer status, String message) {
+        this.status = status;
+        this.message = message;
+    }
 }
