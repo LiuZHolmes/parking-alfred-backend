@@ -2,10 +2,7 @@ package com.alfred.parkingalfred.controller;
 
 import com.alfred.parkingalfred.service.OrderService;
 import com.alfred.parkingalfred.vo.ResultVO;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,4 +24,5 @@ public class OrderController {
     public ResultVO getParcelsByStatus(@RequestParam String type,@RequestParam String status){
         return new ResultVO<List>(200,"Return filteredOrders", orderService.getOrdersByTypeAndStatus(Integer.valueOf(type),Integer.valueOf(status)));
     }
+
 }

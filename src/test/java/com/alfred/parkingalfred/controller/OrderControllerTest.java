@@ -52,10 +52,6 @@ public class OrderControllerTest {
     }
     @Test
     public void should_return_orders_when_get_it_by_type_and_status() throws Exception {
-        // given
-
-        // when
-        // then
         List<Order>newOrders = new ArrayList<>();
         newOrders.add(new Order((long)1, 1,"南方软件园", 1));
         when(orderService.getOrdersByTypeAndStatus(any(Integer.class),any(Integer.class))).thenReturn(newOrders);
