@@ -38,4 +38,9 @@ public class OrderController {
         return new ResultVO<List>(200,"Return filteredOrders", orderService.getOrdersByTypeAndStatus(Integer.valueOf(type),Integer.valueOf(status)));
     }
 
+
+    @PutMapping(value="/orders/{id}")
+    public ResultVO updateOrderStatusById(@PathVariable Long id,@RequestBody Order order){
+        return new ResultVO<>(ResultEnum.SUCCESS.getStatus(), null, orderService.updateOrderStatusById(id,order));
+    }
 }
