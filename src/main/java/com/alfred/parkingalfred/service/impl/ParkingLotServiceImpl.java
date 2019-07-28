@@ -8,17 +8,19 @@ import com.alfred.parkingalfred.repository.EmployeeRepository;
 import com.alfred.parkingalfred.repository.ParkingLotRepository;
 import com.alfred.parkingalfred.service.ParkingLotService;
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ParkingLotServiceImpl implements ParkingLotService {
 
-  @Autowired
-  private ParkingLotRepository parkingLotRepository;
-  @Autowired
-  private EmployeeRepository employeeRepository;
+  private final ParkingLotRepository parkingLotRepository;
+
+  private final EmployeeRepository employeeRepository;
+
+  public ParkingLotServiceImpl(ParkingLotRepository parkingLotRepository, EmployeeRepository employeeRepository) {
+    this.parkingLotRepository = parkingLotRepository;
+    this.employeeRepository = employeeRepository;
+  }
 
   @Override
   public List<ParkingLot> getParkingLotsByParkingBoyId(Long parkingBoyId) {
