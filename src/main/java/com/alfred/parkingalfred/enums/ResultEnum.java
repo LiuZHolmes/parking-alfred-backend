@@ -1,5 +1,8 @@
 package com.alfred.parkingalfred.enums;
 
+import lombok.Data;
+
+
 public enum ResultEnum {
   SUCCESS(0, "成功"),
   PARAM_ERROR(1, "参数不正确"),
@@ -10,5 +13,13 @@ public enum ResultEnum {
   ResultEnum(Integer status, String message) {
     this.status = status;
     this.message = message;
+  }
+
+  public Integer getStatus() {
+    return status;
+  }
+
+  public String getMessage() {
+    return message;
   }
 }
