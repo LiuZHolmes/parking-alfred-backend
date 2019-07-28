@@ -2,14 +2,15 @@ package com.alfred.parkingalfred.controller;
 
 import com.alfred.parkingalfred.entity.Employee;
 import com.alfred.parkingalfred.entity.ParkingLot;
+import com.alfred.parkingalfred.enums.ResultEnum;
 import com.alfred.parkingalfred.enums.RoleEnum;
+import com.alfred.parkingalfred.exception.EmployeeNotExistedException;
 import com.alfred.parkingalfred.service.EmployeeService;
 import com.alfred.parkingalfred.service.ParkingLotService;
 import com.alfred.parkingalfred.utils.JwtUtil;
 import java.util.Arrays;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,7 +18,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -56,7 +56,8 @@ public class EmployeeControllerTest {
         String name = "name";
         String password = "password";
 
-        when(employeeService.getEmployeeByNameAndPassword(anyString(), anyString())).thenReturn(null);
+        when(employeeService.getEmployeeByNameAndPassword(anyString(), anyString())).thenThrow(
+            new EmployeeNotExistedException(ResultEnum.RESOURCES_NOT_EXISTED));
 
         mockMvc.perform(get("/login")
                 .param("name", name)
