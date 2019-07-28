@@ -53,4 +53,15 @@ public class Order {
     this.customerAddress = customerAddress;
     this.status = status;
   }
+
+  public Order(Long orderId, Integer type, Long reservationTime, String customerAddress, Integer status, Employee employee, Car car, ParkingLot parkingLot) {
+    this.orderId = orderId;
+    this.type = type;
+    this.reservationTime = reservationTime;
+    this.customerAddress = customerAddress;
+    this.status = status;
+    this.employee = employee;
+    this.car = car;
+    this.parkingLot = parkingLot;
+  }
 }
