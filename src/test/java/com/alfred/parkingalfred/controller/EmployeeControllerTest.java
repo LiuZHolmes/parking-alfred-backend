@@ -21,6 +21,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
@@ -79,6 +80,19 @@ public class EmployeeControllerTest {
 
         mockMvc.perform(get("/employee/{employeeId}/parking-lots/",employeeId)
         .header("Authorization", "Bearer " + token))
+            .andExpect(status().isOk());
+    }
+    @Test
+    public void should_return_true_when_call_getStatusOfEmployeeById_API_with_true_param()
+        throws Exception {
+        Long employeeId= 1L;
+        ParkingLot parkingLot = new ParkingLot((long) 1,"test lot",100,100);
+        Employee employee = new Employee();
+        employee.setId(employeeId);
+        String token = JwtUtil.generateToken(employee);
+        when(employeeService.doesEmplyeeHasNotFullParkingLots(employeeId)).thenReturn(true);
+        mockMvc.perform(get("/employee/{employeeId}/parking-lots/",employeeId)
+            .header("Authorization", "Bearer " + token))
             .andExpect(status().isOk());
     }
 }
