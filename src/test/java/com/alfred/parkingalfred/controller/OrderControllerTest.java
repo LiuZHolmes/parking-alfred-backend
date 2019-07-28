@@ -33,18 +33,16 @@ public class OrderControllerTest {
     private List<Order> orders;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         orders = new ArrayList<>();
         orders.add(new Order());
     }
 
     @Test
     public void should_return_orders_when_get_it() throws Exception {
-        // given
         when(orderService.getOrders()).thenReturn(orders);
-        // when
+
         mockMvc.perform(get("/orders"))
-                // then
                 .andExpect(jsonPath("$.data.length()")
                         .value(1));
     }
