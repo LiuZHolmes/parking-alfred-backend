@@ -2,12 +2,14 @@ package com.alfred.parkingalfred.controller;
 
 import com.alfred.parkingalfred.service.OrderService;
 import com.alfred.parkingalfred.vo.ResultVO;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class OrderController {
 
     private final OrderService orderService;
