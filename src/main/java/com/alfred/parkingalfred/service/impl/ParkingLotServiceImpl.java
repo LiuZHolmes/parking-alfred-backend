@@ -8,7 +8,6 @@ import com.alfred.parkingalfred.repository.EmployeeRepository;
 import com.alfred.parkingalfred.repository.ParkingLotRepository;
 import com.alfred.parkingalfred.service.ParkingLotService;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +22,8 @@ public class ParkingLotServiceImpl implements ParkingLotService {
   @Override
   public List<ParkingLot> getParkingLotsByParkingBoyId(Long parkingBoyId) {
     Employee employee = employeeRepository.findById(parkingBoyId).orElseThrow(() ->
-        new EmployeeNotExistedException(ResultEnum.EMPLOYEE_NOT_EXISTED));
+        new EmployeeNotExistedException(ResultEnum.RESOURCES_NOT_EXISTED));
     return employee.getParkingLots();
   }
+
 }

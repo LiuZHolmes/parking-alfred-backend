@@ -2,7 +2,9 @@ package com.alfred.parkingalfred.exception;
 
 import com.alfred.parkingalfred.enums.ResultEnum;
 import java.util.function.Supplier;
+import lombok.Getter;
 
+@Getter
 public class EmployeeNotExistedException extends RuntimeException  {
 
   private Integer code;
