@@ -7,7 +7,7 @@ public enum ResultEnum {
 
     SUCCESS(200, "成功"),
     PARAM_ERROR(400, "参数不正确"),
-    EMPLOYEE_NOT_EXISTED(404, "资源不存在");
+    RESOURCES_NOT_EXISTED(404, "资源不存在");
 
     private Integer status;
 
