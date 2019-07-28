@@ -7,6 +7,7 @@ import com.alfred.parkingalfred.service.EmployeeService;
 import com.alfred.parkingalfred.utils.EncodingUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Optional;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -44,15 +45,17 @@ public class EmployeeServiceImplTest {
         assertEquals(objectMapper.writeValueAsString(employee), objectMapper.writeValueAsString(actualEmployee));
     }
     @Test
-    public void should_return_true_when_call_doesEmplyeeHasNotFullParkingLots_with_empployeeId_and_he_or_she_has_notFull_parking_lot(){
+    public void should_return_true_when_call_doesEmplyeeHasNotFullParkingLots_with_employeeId_and_he_or_she_has_notFull_parking_lot(){
       Long employeeId = 1L;
+        when(employeeRepository.findById(employeeId)).thenReturn(Optional.of(new Employee()));
       when(parkingLotRepository.findALLNotFullParkingLotRowsByEmployeeId(employeeId)).thenReturn(1);
       boolean result = employeeService.doesEmplyeeHasNotFullParkingLots(employeeId);
         assertEquals(true,result);
     }
     @Test
-    public void should_return_false_when_call_doesEmplyeeHasNotFullParkingLots_with_empployeeId_and_he_or_she_has_not_notFull_parking_lot(){
+    public void should_return_false_when_call_doesEmplyeeHasNotFullParkingLots_with_employeeId_and_he_or_she_has_not_notFull_parking_lot(){
         Long employeeId = 1L;
+        when(employeeRepository.findById(employeeId)).thenReturn(Optional.of(new Employee()));
         when(parkingLotRepository.findALLNotFullParkingLotRowsByEmployeeId(employeeId)).thenReturn(0);
         boolean result = employeeService.doesEmplyeeHasNotFullParkingLots(employeeId);
         assertEquals(false,result);

@@ -84,27 +84,18 @@ public class EmployeeControllerTest {
     @Test
     public void should_return_parkingLots_when_call_getParkingLotsByEmployeeId_API_with_true_param()
             throws Exception {
-        Long employeeId = 1L;
         ParkingLot parkingLot = new ParkingLot((long) 1, "test lot", 100, 100);
-        throws Exception {
         Long employeeId= 1L;
-        ParkingLot parkingLot = new ParkingLot((long) 1,"test lot",100,100);
-
         Employee employee = new Employee();
         employee.setId(employeeId);
         String token = JwtUtil.generateToken(employee);
-
         when(parkingLotService.getParkingLotsByParkingBoyId(employeeId)).thenReturn(Arrays.asList(parkingLot));
-
         mockMvc.perform(get("/employee/{employeeId}/parking-lots/", employeeId)
-                .header("Authorization", "Bearer " + token))
-        mockMvc.perform(get("/employee/{employeeId}/parking-lots/",employeeId)
-        .header("Authorization", "Bearer " + token))
-            .andExpect(status().isOk());
+                .header("Authorization", "Bearer " + token)
+               ).andExpect(status().isOk());
     }
     @Test
-    public void should_return_true_when_call_getStatusOfEmployeeById_API_with_true_param()
-        throws Exception {
+    public void should_return_true_when_call_getStatusOfEmployeeById_API_with_true_param()throws Exception {
         Long employeeId= 1L;
         ParkingLot parkingLot = new ParkingLot((long) 1,"test lot",100,100);
         Employee employee = new Employee();
@@ -114,6 +105,5 @@ public class EmployeeControllerTest {
         mockMvc.perform(get("/employee/{employeeId}/parking-lots/",employeeId)
             .header("Authorization", "Bearer " + token))
                 .andExpect(status().isOk());
-            .andExpect(status().isOk());
     }
 }
