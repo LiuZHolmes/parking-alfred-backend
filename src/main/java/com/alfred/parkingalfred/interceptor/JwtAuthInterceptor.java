@@ -15,7 +15,7 @@ import java.util.stream.Stream;
 
 public class JwtAuthInterceptor implements HandlerInterceptor {
 
-    private String[] permits = {"/login"};
+    private String[] permits = {"/login","/orders"};
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {

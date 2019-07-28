@@ -14,14 +14,14 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class AuthControllerTest {
+public class EmployeeControllerTest {
 
     @MockBean
     private EmployeeService employeeService;
@@ -37,7 +37,7 @@ public class AuthControllerTest {
         Employee employee = new Employee();
         employee.setId(1L);
         employee.setRole(RoleEnum.PARKING_BOY.getCode());
-        given(employeeService.getEmployeeByNameAndPassword(anyString(), anyString())).willReturn(employee);
+        when(employeeService.getEmployeeByNameAndPassword(anyString(), anyString())).thenReturn(employee);
 
         mockMvc.perform(get("/login")
                 .param("name", name)
@@ -50,7 +50,7 @@ public class AuthControllerTest {
         String name = "name";
         String password = "password";
 
-        given(employeeService.getEmployeeByNameAndPassword(anyString(), anyString())).willReturn(null);
+        when(employeeService.getEmployeeByNameAndPassword(anyString(), anyString())).thenReturn(null);
 
         mockMvc.perform(get("/login")
                 .param("name", name)
