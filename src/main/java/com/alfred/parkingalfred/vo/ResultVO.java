@@ -1,7 +1,6 @@
 package com.alfred.parkingalfred.vo;
 
 import java.io.Serializable;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,4 +17,5 @@ public class ResultVO<T>implements Serializable {
 
   /** return data */
   private T data;
+
 }
