@@ -1,6 +1,7 @@
 package com.alfred.parkingalfred.controller;
 
 import com.alfred.parkingalfred.dto.CreateOrderDto;
+import com.alfred.parkingalfred.entity.Order;
 import com.alfred.parkingalfred.enums.ResultEnum;
 import com.alfred.parkingalfred.service.OrderService;
 import com.alfred.parkingalfred.vo.ResultVO;
