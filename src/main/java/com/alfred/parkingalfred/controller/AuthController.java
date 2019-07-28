@@ -1,33 +1,24 @@
 package com.alfred.parkingalfred.controller;
 
-import com.alfred.parkingalfred.config.JwtConfig;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import com.alfred.parkingalfred.entity.Employee;
+import com.alfred.parkingalfred.service.EmployeeService;
+import com.alfred.parkingalfred.utils.JwtUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Date;
 
 @RestController
 public class AuthController {
 
-    private JwtConfig jwtConfig;
+    @Autowired
+    private EmployeeService employeeService;
 
-    public AuthController(JwtConfig jwtConfig) {
-        this.jwtConfig = jwtConfig;
-    }
-
-    @GetMapping(value = "/login")
-    @ResponseBody
-    public ResponseEntity login(String username, String password) {
-        if (username == null || password == null) {
-            return ResponseEntity.badRequest().body("auth is invalid");
-        }
-        String token = Jwts.builder()
-                .setExpiration(new Date(System.currentTimeMillis() + jwtConfig.getExpire() * 1000))
-                .claim("username", username)
-                .signWith(SignatureAlgorithm.HS256, jwtConfig.getSecret())
-                .compact();
+    @GetMapping(value = "/login", params = {"name", "password"})
+    public ResponseEntity login(@RequestParam String name, @RequestParam String password) {
+        Employee employee = employeeService.getEmployeeByNameAndPassword(name, password);
+        if (employee == null)
+            return ResponseEntity.notFound().build();
+        String token = JwtUtil.generateToken(employee);
         return ResponseEntity.ok(token);
     }
 

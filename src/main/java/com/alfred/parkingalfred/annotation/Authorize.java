@@ -9,5 +9,6 @@ import java.lang.annotation.*;
 @Documented
 @Inherited
 public @interface Authorize {
+
     RoleEnum[] value();
 }
