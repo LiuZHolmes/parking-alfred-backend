@@ -3,6 +3,8 @@ package com.alfred.parkingalfred.service.impl;
 import com.alfred.parkingalfred.entity.Car;
 import com.alfred.parkingalfred.entity.Order;
 import com.alfred.parkingalfred.enums.OrderTypeEnum;
+import com.alfred.parkingalfred.enums.ResultEnum;
+import com.alfred.parkingalfred.exception.OrderNotExistedException;
 import com.alfred.parkingalfred.repository.OrderRepository;
 import com.alfred.parkingalfred.service.OrderService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -61,5 +63,16 @@ public class OrderServiceImplTest {
         Order actualOrder = orderService.getOrderById(id);
 
         assertEquals(objectMapper.writeValueAsString(order), objectMapper.writeValueAsString(actualOrder));
+    }
+
+    @Test
+    public void should_throw_exception_when_get_order_by_invalid_id() {
+        Long id = 1L;
+        Order order = new Order();
+        order.setId(id);
+
+        when(orderRepository.findById(anyLong())).thenThrow(new OrderNotExistedException(ResultEnum.RESOURCES_NOT_EXISTED));
+
+        assertThrows(OrderNotExistedException.class, () -> orderService.getOrderById(id));
     }
 }
